@@ -1,0 +1,24 @@
+<div class="app-container">
+  <div class="app-header">
+    <h1 class="app-title">{{ title }}</h1>
+  </div>
+
+  <div class="app-content">
+    <div *ngIf="!showPlayer" class="carousels-container">
+      <div *ngFor="let category of categories" class="carousel-section">
+        <h2 class="category-title">{{ category.name }}</h2>
+        <app-carousel 
+          [items]="category.content"
+          (onContentSelected)="onContentSelected($event)">
+        </app-carousel>
+      </div>
+    </div>
+
+    <div *ngIf="showPlayer && selectedContent" class="player-container">
+      <app-video-player 
+        [content]="selectedContent"
+        (onClose)="onPlayerClosed()">
+      </app-video-player>
+    </div>
+  </div>
+</div>

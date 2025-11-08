@@ -1,0 +1,54 @@
+<div class="video-player-container">
+  <video 
+    #videoElement 
+    class="video-element"
+    [poster]="content?.posterUrl"
+    crossorigin="anonymous">
+    <source [src]="content?.videoUrl" type="video/mp4">
+  </video>
+
+  <div class="video-player-overlay" *ngIf="isBuffering">
+    <div class="buffering-indicator">
+      <div class="spinner"></div>
+      <p>Loading...</p>
+    </div>
+  </div>
+
+  <div class="video-controls" [class.hidden]="!showControls">
+    <div class="progress-container">
+      <div class="progress-bar">
+        <div class="progress-fill" [style.width.%]="(currentTime / duration) * 100"></div>
+        <div class="progress-buffered" [style.width.%]="bufferedPercentage"></div>
+      </div>
+    </div>
+
+    <div class="controls-bottom">
+      <div class="controls-left">
+        <button class="control-btn" (click)="togglePlayPause()">
+          <span *ngIf="!isPlaying">Play</span>
+          <span *ngIf="isPlaying">Pause</span>
+        </button>
+
+        <div class="time-display">
+          {{ formatTime(currentTime) }} / {{ formatTime(duration) }}
+        </div>
+
+        <button class="control-btn" (click)="changeVolume(-0.1)">Vol -</button>
+        <div class="volume-indicator">{{ (volume * 100).toFixed(0) }}%</div>
+        <button class="control-btn" (click)="changeVolume(0.1)">Vol +</button>
+      </div>
+
+      <div class="controls-right">
+  <!-- TODO: Añadir selector de subtítulos/pistas de audio -->
+  <!-- TODO: Añadir selector de calidad (720p, 1080p, etc.) -->
+  <!-- TODO: Añadir control de velocidad de reproducción -->
+        <button class="control-btn close-btn" (click)="close()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-info" *ngIf="content">
+    <h2 class="content-title">{{ content.title }}</h2>
+    <p class="content-description">{{ content.description }}</p>
+  </div>
+</div>

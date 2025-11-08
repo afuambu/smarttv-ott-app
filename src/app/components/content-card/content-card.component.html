@@ -1,0 +1,30 @@
+<div class="content-card" 
+  (click)="selectContent()"
+  (mouseenter)="isHovered = true"
+  (mouseleave)="isHovered = false"
+  tabindex="0">
+
+  <div class="card-image">
+    <img 
+      [src]="content?.thumbnail" 
+      [alt]="content?.title"
+      loading="lazy"
+      class="thumbnail">
+
+    <div class="overlay" *ngIf="isHovered">
+      <div class="play-button">Play</div>
+      <div class="duration-badge">{{ content?.duration }}s</div>
+    </div>
+  </div>
+
+  <div class="card-info">
+    <h3 class="card-title">{{ content?.title }}</h3>
+
+  <!-- TODO: Añadir visualización de etiquetas de género -->
+  <!-- TODO: Mostrar la puntuación con iconos de estrellas -->
+
+    <div class="card-meta" *ngIf="content?.rating">
+      <span class="rating">{{ content.rating }}/10</span>
+    </div>
+  </div>
+</div>

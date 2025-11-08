@@ -1,0 +1,30 @@
+<div class="carousel-container">
+  <button 
+    class="carousel-nav prev" 
+    (click)="movePrev()"
+    [disabled]="!canMovePrev()">
+    Prev
+  </button>
+
+  <div class="carousel-items">
+    <app-content-card 
+      *ngFor="let content of getVisibleItems()"
+      [content]="content"
+      (onSelect)="selectContent(content)">
+    </app-content-card>
+  </div>
+
+  <button 
+    class="carousel-nav next" 
+    (click)="moveNext()"
+    [disabled]="!canMoveNext()">
+    Next
+  </button>
+</div>
+
+<div class="carousel-indicators">
+  <div class="indicator" 
+    *ngFor="let item of items; let i = index"
+    [class.active]="i >= currentIndex && i < currentIndex + visibleItemsCount">
+  </div>
+</div>

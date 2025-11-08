@@ -1,0 +1,59 @@
+.carousel-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.carousel-nav {
+  flex-shrink: 0;
+  background-color: rgba(255, 107, 0, 0.8);
+  border: none;
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+
+  &:hover:not(:disabled) {
+    background-color: #ff6b00;
+  }
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  // TODO: Añadir mejores botones de navegación con iconos de flecha
+  // TODO: Implementar atajos de teclado para navegación
+}
+
+.carousel-items {
+  display: flex;
+  gap: 15px;
+  flex: 1;
+  overflow: hidden;
+  // TODO: Añadir animación de desplazamiento suave
+}
+
+.carousel-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 15px;
+  width: 100%;
+}
+
+.indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.3);
+
+  &.active {
+    background-color: #ff6b00;
+    width: 20px;
+    border-radius: 4px;
+  }
+}
