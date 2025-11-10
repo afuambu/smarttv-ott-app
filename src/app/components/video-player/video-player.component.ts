@@ -323,7 +323,7 @@ export class VideoPlayerComponent {
    * @param event Keyboard event captured via HostListener
    */
   handleKeyboardEvent(event: KeyboardEvent): void {
-    // atajos de teclado y control remoto
+    // atajos de teclado y control remoto:
     // Space: toggle play/pause
     // Arrow Left/Right: seek
     // Arrow Up/Down: volume
