@@ -27,6 +27,20 @@
   justify-content: center;
 }
 
+.video-error-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  font-size: 1.2rem;
+  text-align: center;
+  padding: 1rem;
+}
+
+
 .buffering-indicator {
   text-align: center;
 

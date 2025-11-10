@@ -101,6 +101,13 @@ export class VideoPlayerComponent {
   isBuffering = false;
 
   /**
+   * Stores error information if video fails to load or play.
+   * @type {string | null}
+   * @default null
+   */
+  videoError: string | null = null;
+
+  /**
    * Timeout handle used to auto-hide controls after inactivity.
    * Implementation detail: may be a number or NodeJS.Timer depending on environment.
    */
@@ -150,8 +157,50 @@ export class VideoPlayerComponent {
     video.addEventListener('waiting', () => this.isBuffering = true);
     video.addEventListener('canplay', () => this.isBuffering = false);
 
-    // TODO: Añadir manejador de eventos de error para fallos de carga de vídeo
+    //Añadir manejador de eventos de error para fallos de carga de vídeo
+    video.addEventListener('error', (event) => this.onVideoError(event));
+
     // TODO: Implementar seguimiento de progreso para analítica
+  }
+
+  /**
+   * Handler invoked when a video loading or playback error occurs.
+   * Logs diagnostic information and updates UI state with a user-friendly message.
+   * 
+   * @param event Event object from the 'error' event
+   * @remarks
+   * This method decodes the `MediaError` code (if available) and stores a readable message
+   * in `videoError`. It can be used by the template to show a visual error notice.
+   */
+  onVideoError(event: Event): void {
+    const video = event.target as HTMLVideoElement;
+    const error = video.error;
+    if (!error) {
+      this.videoError = 'Error desconocido al reproducir el vídeo.';
+      console.error('Unknown video error event:', event);
+      return;
+    }
+
+    switch (error.code) {
+      case MediaError.MEDIA_ERR_ABORTED:
+        this.videoError = 'La reproducción del vídeo fue cancelada por el usuario.';
+        break;
+      case MediaError.MEDIA_ERR_NETWORK:
+        this.videoError = 'Error de red al cargar el vídeo.';
+        break;
+      case MediaError.MEDIA_ERR_DECODE:
+        this.videoError = 'El vídeo no se pudo decodificar correctamente.';
+        break;
+      case MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED:
+        this.videoError = 'El formato o la fuente del vídeo no son compatibles.';
+        break;
+      default:
+        this.videoError = 'Error desconocido al reproducir el vídeo.';
+    }
+
+    console.error('Video playback error:', error, this.videoError);
+    this.isPlaying = false;
+    this.isBuffering = false;
   }
 
   /**
@@ -160,6 +209,7 @@ export class VideoPlayerComponent {
    */
   onPlay(): void {
     this.isPlaying = true;
+    this.videoError = null; // Limpia errores si se vuelve a reproducir correctamente
   }
 
   /**

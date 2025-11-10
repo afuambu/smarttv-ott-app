@@ -13,6 +13,11 @@
       <p>Loading...</p>
     </div>
   </div>
+  
+  <!-- Mensaje de error de carga o reproducción -->
+  <div class="video-error-overlay" *ngIf="videoError">
+    <p class="video-error-message">{{ videoError }}</p>
+  </div>
 
   <div class="video-controls" [class.hidden]="!showControls">
     <div class="progress-container">
