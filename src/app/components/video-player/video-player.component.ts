@@ -323,11 +323,38 @@ export class VideoPlayerComponent {
    * @param event Keyboard event captured via HostListener
    */
   handleKeyboardEvent(event: KeyboardEvent): void {
-    // TODO: Implementar atajos de teclado y control remoto
+    // atajos de teclado y control remoto
     // Space: toggle play/pause
     // Arrow Left/Right: seek
     // Arrow Up/Down: volume
     // Esc: exit player
     console.log('Key pressed:', event.key);
+
+    switch (event.key) {
+      case ' ':
+      case 'Spacebar':
+        event.preventDefault();
+        this.togglePlayPause();
+        break;
+      case 'ArrowLeft':
+        this.seek(-10);
+        break;
+      case 'ArrowRight':
+        this.seek(10);
+        break;
+      case 'ArrowUp':
+        this.changeVolume(0.1);
+        break;
+      case 'ArrowDown':
+        this.changeVolume(-0.1);
+        break;
+      case 'Escape':
+      case 'Esc':
+        this.close();
+        break;
+      default:
+        break;
+    }
+
   }
 }
